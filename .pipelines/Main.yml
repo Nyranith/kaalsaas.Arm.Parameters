@@ -22,13 +22,5 @@ variables:
   BuildConfiguration: Release
   TargetFramework: net5.0
 
-
-resources:
-  repositories: 
-    - repository: templates
-      type: git
-      name: OneBranch.Pipelines/GovernedTemplates
-      ref: refs/heads/main
-
-    stages:
-    - template: Common.yml
+stages:
+  - template: Common.yml
