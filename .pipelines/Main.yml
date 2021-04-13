@@ -32,5 +32,3 @@ resources:
 
     stages:
     - template: Common.yml
-      parameters:
-        official: true
