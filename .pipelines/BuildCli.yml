@@ -23,7 +23,7 @@ steps:
     inputs:
       command: "test"
       projects: $(BuildSolution)
-      arguments: '--configuration $(BuildConfiguration) --logger trx --blame --collect:"XPlat Code Coverage" --settings ./.github/workflows/codecov.runsettings --results-directory $(Build.SourcesDirectory)/TestResults/'
+      arguments: '--configuration $(BuildConfiguration) --logger trx --blame --collect:"XPlat Code Coverage" --results-directory $(Build.SourcesDirectory)/TestResults/'
       publishTestResults: false
 
   - task: PublishTestResults@2
