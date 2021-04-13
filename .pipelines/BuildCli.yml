@@ -16,7 +16,7 @@ steps:
     inputs:
       command: build
       projects: $(BuildSolution)
-      arguments: "--configuration $(BuildConfiguration) /p:PublicRelease=${{ parameters.official }}"
+      arguments: "--configuration $(BuildConfiguration)"
 
   - task: DotNetCoreCLI@2
     displayName: Test
@@ -39,7 +39,7 @@ steps:
       command: "publish"
       publishWebProjects: false
       projects: ./src/kaalsaas.Arm.Parameters.CLI/kaalsaas.Arm.Parameters.CLI.csproj
-      arguments: "--configuration $(BuildConfiguration) --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true -r ${{ parameters.rid }} /p:PublicRelease=${{ parameters.official }}"
+      arguments: "--configuration $(BuildConfiguration) --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true -r ${{ parameters.rid }}"
       zipAfterPublish: false
 
   - task: CopyFiles@2
