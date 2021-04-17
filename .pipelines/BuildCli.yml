@@ -54,4 +54,4 @@ steps:
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: "$(Build.SourcesDirectory)/out/kaalsaas.Arm.Parameters.CLI-$(BuildConfiguration)-${{ parameters.rid }}/"
-      artifactName: "kaalsaas.Arm.Parameters.CLI-$(BuildConfiguration)-${{ parameters.rid }}"
+      artifactName: "${{ parameters.rid }}"
