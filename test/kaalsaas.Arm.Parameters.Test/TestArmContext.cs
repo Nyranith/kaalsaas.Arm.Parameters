@@ -3,8 +3,13 @@ using Xunit;
 
 namespace kaalsaas.Arm.Parameters.Test
 {
-    public class UnitTest1
+    public class TestArmContext
     {
+        public TestArmContext()
+        {
+
+        }
+
         [Fact]
         public void Test1()
         {
