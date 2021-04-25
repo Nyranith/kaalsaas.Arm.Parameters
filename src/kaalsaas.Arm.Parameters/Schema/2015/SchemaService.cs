@@ -6,28 +6,32 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using kaalsaas.Arm.Parameters.Schema._2015.Schema;
+using Newtonsoft.Json.Linq;
 
 namespace kaalsaas.Arm.Parameters.Schema._2015
 {
-    public class SchemaService : ISchemaService<ArmSchema>
+    public class SchemaService : ISchemaService
     {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+        private const string properties = "properties";
+
+        public JObject Object { get; }
+
+        public SchemaService(string json)
         {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters =
+            if (string.IsNullOrEmpty(json))
+                throw new NullReferenceException("Json content cannot be null");
+
+            Object = JObject.Parse(json);
+        }
+
+
+        public IEnumerable<object> GetParameters()
+        {
+            foreach (var parameter in Object[properties])
             {
-                TypeEnumConverter.Singleton,
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
-        };
-
-        public ArmSchema Schema { get; set; }
-
-        public ISchemaService Load(string json)
-        {
-            Schema = JsonConvert.DeserializeObject<ArmSchema>(json, Settings);
-            return this; 
+                yield return parameter;
+            }
         }
     }
 }

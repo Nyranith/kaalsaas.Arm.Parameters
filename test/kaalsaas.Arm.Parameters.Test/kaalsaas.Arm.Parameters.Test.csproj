@@ -20,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\kaalsaas.Arm.Parameters\kaalsaas.Arm.Parameters.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="storageAccount.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

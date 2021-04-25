@@ -8,12 +8,12 @@ namespace kaalsaas.Arm.Parameters.Schema
 {
     public interface ISchemaService
     {
-        ISchemaService Load(string json);
+        IEnumerable<object> GetParameters();
     }
 
-    public interface ISchemaService<T> : ISchemaService
-        where T : class
+    public interface ISchemaService<out TSchema> : ISchemaService
+        where TSchema : class
     {
-        T Schema { get; }
+        TSchema Schema { get; }
     }
 }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using kaalsaas.Arm.Parameters.Schema._2019.Schema;
 using Newtonsoft.Json;
 
 namespace kaalsaas.Arm.Parameters.Schema._2019
 {
-    public class TypeEnumConverter : JsonConverter
+    /*public class TypeEnumConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(TypeEnum) || t == typeof(TypeEnum?);
 
@@ -57,5 +56,5 @@ namespace kaalsaas.Arm.Parameters.Schema._2019
         }
 
         public static readonly TypeEnumConverter Singleton = new TypeEnumConverter();
-    }
+    }*/
 }
