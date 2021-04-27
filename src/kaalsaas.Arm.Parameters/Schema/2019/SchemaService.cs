@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using kaalsaas.Arm.Parameters.Extensions;
+using kaalsaas.Arm.Parameters.Schema.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -24,11 +26,38 @@ namespace kaalsaas.Arm.Parameters.Schema._2019
             Object = JObject.Parse(json);
         }
 
-        public IEnumerable<object> GetParameters()
+        public IEnumerable<IParameter> GetParameters()
         {
+
             foreach(var parameter in Object[parameters])
             {
-                yield return parameter;
+                var model = new Models.Parameter()
+                {
+                    Name = ((JProperty)parameter).Name
+                };
+
+
+                foreach (var child in parameter.Children())
+                {
+                    if (child.HasValues)
+                    {
+                        if (!child["defaultValue"].IsNullOrEmpty())
+                        {
+                            model.DefaultParameter = child["defaultValue"]?.Value<string>();
+                        }
+                        if (!child["allowedValues"].IsNullOrEmpty())
+                        {
+                            model.AllowedValues = child["allowedValues"]?.ToObject<string[]>();
+                        }
+                        if (!child["type"].IsNullOrEmpty())
+                        {
+                            model.Type = child["type"]?.Value<string>();
+                        }
+                    }
+                }   
+
+
+                yield return model;
             }
         }
     }

@@ -38,5 +38,30 @@ namespace kaalsaas.Arm.Parameters.Test
                 }
             }
         }
+
+
+        [Fact]
+        public void TestCreateSchema()
+        {
+            using (StreamReader r = new StreamReader("storageAccount.json"))
+            {
+                ArmContext arm = new ArmContext(r.ReadToEnd());
+
+                output.WriteLine(arm.CreateParameterSchema()); 
+            }
+        }
+
+
+        [Fact]
+        public void TestCreateSchemaAssertOutput()
+        {
+            using (StreamReader r = new StreamReader("storageAccount.json"))
+            {
+                ArmContext arm = new ArmContext(r.ReadToEnd());
+
+                Assert.Equal("{\"$schema\":\"https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{\"storagePrefix\":{\"value\":\"\"},\"location\":{\"value\":\"[resourceGroup().location]\"},\"storageSKU\":{\"value\":\"Standard_LRS\"},\"Environment\":{\"value\":\"Dev\"}}}", (string)arm.CreateParameterSchema());
+            }
+        }
     }
 }
+

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using kaalsaas.Arm.Parameters.Schema;
+using kaalsaas.Arm.Parameters.Schema._2019;
+using kaalsaas.Arm.Parameters.Schema.Models;
 using Newtonsoft.Json.Linq;
 
 namespace kaalsaas.Arm.Parameters
@@ -39,8 +42,35 @@ namespace kaalsaas.Arm.Parameters
                     throw new Exception($"Schema not supported, found schema: {schemaValue}");
             }
         }
+        
+        public ParameterSchema CreateParameterSchema(bool ignoreDefaultValues = false)
+        {
+            return new ParameterSchema
+            {
+                Schema = GetParameterSchema(Schema),
+                ContentVersion = "1.0.0.0",
+                Parameters = GetParameters().ToDictionary(value => value.Name, value => (object)new kaalsaas.Arm.Parameters.Schema._2019.Parameter.Parameter()
+                {
+                    Value = ignoreDefaultValues == false && value.DefaultParameter != null ? value.DefaultParameter.ToString() : ""
+                })
+            };
+        }
 
-        public IEnumerable<object> GetParameters()
+        private string GetParameterSchema(SchemaType schema)
+        {
+            switch (schema)
+            {
+                case SchemaType._2015:
+                    return "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#";
+                case SchemaType._2019:
+                    return "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#"; 
+                default:
+                    throw new Exception($"Cannot find schema type {schema}"); 
+            }
+        }
+
+
+        public IEnumerable<IParameter> GetParameters()
         {
             return SchemaService.GetParameters();
         }
