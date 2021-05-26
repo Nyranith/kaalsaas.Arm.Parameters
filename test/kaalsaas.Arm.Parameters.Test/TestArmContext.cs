@@ -21,7 +21,7 @@ namespace kaalsaas.Arm.Parameters.Test
         {
             using (StreamReader r = new StreamReader("storageAccount.json"))
             {
-                ArmContext arm = new ArmContext(r.ReadToEnd());
+                IArmContext arm = new ArmContext().Load(r.ReadToEnd());
                 Assert.True(arm.Schema == SchemaType._2019);
             }
         }
@@ -31,7 +31,7 @@ namespace kaalsaas.Arm.Parameters.Test
         {
             using (StreamReader r = new StreamReader("storageAccount.json"))
             {
-                ArmContext arm = new ArmContext(r.ReadToEnd());
+                IArmContext arm = new ArmContext().Load(r.ReadToEnd());
                 foreach (var parameter in arm.GetParameters())
                 {
                     output.WriteLine(parameter.ToString());
@@ -45,7 +45,7 @@ namespace kaalsaas.Arm.Parameters.Test
         {
             using (StreamReader r = new StreamReader("storageAccount.json"))
             {
-                ArmContext arm = new ArmContext(r.ReadToEnd());
+                IArmContext arm = new ArmContext().Load(r.ReadToEnd());
 
                 output.WriteLine(arm.CreateParameterSchema()); 
             }
@@ -57,7 +57,7 @@ namespace kaalsaas.Arm.Parameters.Test
         {
             using (StreamReader r = new StreamReader("storageAccount.json"))
             {
-                ArmContext arm = new ArmContext(r.ReadToEnd());
+                IArmContext arm = new ArmContext().Load(r.ReadToEnd());
 
                 Assert.Equal("{\"$schema\":\"https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{\"storagePrefix\":{\"value\":\"\"},\"location\":{\"value\":\"[resourceGroup().location]\"},\"storageSKU\":{\"value\":\"Standard_LRS\"},\"Environment\":{\"value\":\"Dev\"}}}", (string)arm.CreateParameterSchema());
             }

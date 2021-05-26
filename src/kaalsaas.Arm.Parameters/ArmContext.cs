@@ -8,15 +8,20 @@ using Newtonsoft.Json.Linq;
 
 namespace kaalsaas.Arm.Parameters
 {
-    public class ArmContext
+    public class ArmContext : IArmContext
     {
         private const string SchemaProperty = "$schema";
 
-        public ISchemaService SchemaService { get; }
+        public ISchemaService SchemaService { get; private set; }
 
         public SchemaType Schema { get; private set; }
 
-        public ArmContext(string json)
+        public ArmContext()
+        {
+            
+        }
+
+        public IArmContext Load(string json)
         {
             if (string.IsNullOrEmpty(json))
                 throw new NullReferenceException("Json content cannot be null");
@@ -41,7 +46,11 @@ namespace kaalsaas.Arm.Parameters
                 default:
                     throw new Exception($"Schema not supported, found schema: {schemaValue}");
             }
+
+            return this; 
         }
+
+
         
         public ParameterSchema CreateParameterSchema(bool ignoreDefaultValues = false)
         {
@@ -73,6 +82,11 @@ namespace kaalsaas.Arm.Parameters
         public IEnumerable<IParameter> GetParameters()
         {
             return SchemaService.GetParameters();
+        }
+
+        string IArmContext.GetParameterSchema(SchemaType schema)
+        {
+            throw new NotImplementedException();
         }
     }
 }

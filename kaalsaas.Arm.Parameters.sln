@@ -5,13 +5,15 @@ VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{355B04E6-A09E-43EC-A14D-29B6958DEF7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kaalsaas.Arm.Parameters", "src\kaalsaas.Arm.Parameters\kaalsaas.Arm.Parameters.csproj", "{B3EF881E-8818-4C4C-B323-F0CCB440AD40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kaalsaas.Arm.Parameters", "src\kaalsaas.Arm.Parameters\kaalsaas.Arm.Parameters.csproj", "{B3EF881E-8818-4C4C-B323-F0CCB440AD40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kaalsaas.Arm.Parameters.CLI", "src\kaalsaas.Arm.Parameters.CLI\kaalsaas.Arm.Parameters.CLI.csproj", "{C9D522E4-A693-40EE-BD5F-816E1F86868C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kaalsaas.Arm.Parameters.CLI", "src\kaalsaas.Arm.Parameters.CLI\kaalsaas.Arm.Parameters.CLI.csproj", "{C9D522E4-A693-40EE-BD5F-816E1F86868C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{34DB649E-1FAB-4B4C-B494-5F99D406C963}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kaalsaas.Arm.Parameters.Test", "test\kaalsaas.Arm.Parameters.Test\kaalsaas.Arm.Parameters.Test.csproj", "{CCD65EDF-E979-4CB2-A95D-919C1272B068}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kaalsaas.Arm.Parameters.Test", "test\kaalsaas.Arm.Parameters.Test\kaalsaas.Arm.Parameters.Test.csproj", "{CCD65EDF-E979-4CB2-A95D-919C1272B068}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kaalsaas.Arm.Parameters.CLI.Test", "test\kaalsaas.Arm.Parameters.CLI.Test\kaalsaas.Arm.Parameters.CLI.Test.csproj", "{03F50692-8218-474F-A68B-C6A0EA1CFFE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B3EF881E-8818-4C4C-B323-F0CCB440AD40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -62,10 +61,29 @@ Global
 		{CCD65EDF-E979-4CB2-A95D-919C1272B068}.Release|x64.Build.0 = Release|Any CPU
 		{CCD65EDF-E979-4CB2-A95D-919C1272B068}.Release|x86.ActiveCfg = Release|Any CPU
 		{CCD65EDF-E979-4CB2-A95D-919C1272B068}.Release|x86.Build.0 = Release|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Debug|x64.Build.0 = Debug|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Debug|x86.Build.0 = Debug|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Release|x64.ActiveCfg = Release|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Release|x64.Build.0 = Release|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Release|x86.ActiveCfg = Release|Any CPU
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B3EF881E-8818-4C4C-B323-F0CCB440AD40} = {355B04E6-A09E-43EC-A14D-29B6958DEF7F}
 		{C9D522E4-A693-40EE-BD5F-816E1F86868C} = {355B04E6-A09E-43EC-A14D-29B6958DEF7F}
 		{CCD65EDF-E979-4CB2-A95D-919C1272B068} = {34DB649E-1FAB-4B4C-B494-5F99D406C963}
+		{03F50692-8218-474F-A68B-C6A0EA1CFFE5} = {34DB649E-1FAB-4B4C-B494-5F99D406C963}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {066F89FD-72B8-485F-9E1C-BF681567DA21}
 	EndGlobalSection
 EndGlobal
