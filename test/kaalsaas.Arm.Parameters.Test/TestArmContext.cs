@@ -59,7 +59,7 @@ namespace kaalsaas.Arm.Parameters.Test
             {
                 IArmContext arm = new ArmContext().Load(r.ReadToEnd());
 
-                Assert.Equal("{\"$schema\":\"https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{\"storagePrefix\":{\"value\":\"\"},\"location\":{\"value\":\"[resourceGroup().location]\"},\"storageSKU\":{\"value\":\"Standard_LRS\"},\"Environment\":{\"value\":\"Dev\"}}}", (string)arm.CreateParameterSchema());
+                Assert.Equal("{\"$schema\":\"https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{\"storagePrefix\":{\"value\":\"\"},\"location\":{\"value\":\"\"},\"storageSKU\":{\"value\":\"Standard_LRS\"},\"Environment\":{\"value\":\"Dev\"}}}", (string)arm.CreateParameterSchema());
             }
         }
     }

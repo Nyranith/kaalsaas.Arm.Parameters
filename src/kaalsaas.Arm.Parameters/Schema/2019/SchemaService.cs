@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using kaalsaas.Arm.Parameters.Extensions;
+using kaalsaas.Arm.Parameters.Helpers;
 using kaalsaas.Arm.Parameters.Schema.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -43,7 +44,12 @@ namespace kaalsaas.Arm.Parameters.Schema._2019
                     {
                         if (!child["defaultValue"].IsNullOrEmpty())
                         {
-                            model.DefaultParameter = child["defaultValue"]?.Value<string>();
+                            var defaultValue = child["defaultValue"]?.Value<string>();
+
+                            if(!CommandHelper.CheckIfIsCommand(defaultValue))
+                            {
+                                model.DefaultParameter = defaultValue;
+                            }
                         }
                         if (!child["allowedValues"].IsNullOrEmpty())
                         {
