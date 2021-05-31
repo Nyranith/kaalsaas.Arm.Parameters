@@ -9,7 +9,7 @@ namespace kaalsaas.Arm.Parameters.Schema.Models
     public class Parameter : IParameter
     {
         public string Name { get; set; }
-        public string DefaultParameter { get; set; }
+        public object DefaultParameter { get; set; }
 
         public string[] AllowedValues { get; set; }
 

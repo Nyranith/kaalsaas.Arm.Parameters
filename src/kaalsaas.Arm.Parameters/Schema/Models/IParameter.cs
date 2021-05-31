@@ -10,7 +10,7 @@ namespace kaalsaas.Arm.Parameters.Schema.Models
     {
         string Name { get; }
 
-        string DefaultParameter { get; }
+        object DefaultParameter { get; }
 
         string[] AllowedValues { get; }
 

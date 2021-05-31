@@ -38,25 +38,44 @@ namespace kaalsaas.Arm.Parameters.Schema._2015
 
                 foreach (var child in parameter.Children())
                 {
-                    if (child.HasValues)
+                    if (!child["type"].IsNullOrEmpty())
                     {
-                        if (!child["defaultValue"].IsNullOrEmpty())
-                        {
-                            var defaultValue = child["defaultValue"]?.Value<string>();
+                        model.Type = child["type"]?.Value<string>();
+                    }
 
-                            if (!CommandHelper.CheckIfIsCommand(defaultValue))
+                    if (!child["defaultValue"].IsNullOrEmpty())
+                    {
+                        var defaultValue = child["defaultValue"]?.Value<string>();
+
+                        if (!CommandHelper.CheckIfIsCommand(defaultValue))
+                        {
+                            if (!string.IsNullOrEmpty(model.Type))
+                            {
+                                switch (model.Type)
+                                {
+                                    case "string":
+                                        model.DefaultParameter = child["defaultValue"]?.Value<string>();
+                                        break;
+                                    case "int":
+                                        model.DefaultParameter = child["defaultValue"]?.Value<int>();
+                                        break;
+                                    case "bool":
+                                        model.DefaultParameter = child["defaultValue"]?.Value<bool>();
+                                        break;
+                                    default:
+                                        model.DefaultParameter = defaultValue;
+                                        break;
+                                }
+                            }
+                            else
                             {
                                 model.DefaultParameter = defaultValue;
                             }
                         }
-                        if (!child["allowedValues"].IsNullOrEmpty())
-                        {
-                            model.AllowedValues = child["allowedValues"]?.ToObject<string[]>();
-                        }
-                        if (!child["type"].IsNullOrEmpty())
-                        {
-                            model.Type = child["type"]?.Value<string>();
-                        }
+                    }
+                    if (!child["allowedValues"].IsNullOrEmpty())
+                    {
+                        model.AllowedValues = child["allowedValues"]?.ToObject<string[]>();
                     }
                 }
 

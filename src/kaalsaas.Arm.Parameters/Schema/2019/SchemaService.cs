@@ -42,22 +42,44 @@ namespace kaalsaas.Arm.Parameters.Schema._2019
                 {
                     if (child.HasValues)
                     {
+                        if (!child["type"].IsNullOrEmpty())
+                        { 
+                            model.Type = child["type"]?.Value<string>();
+                        }
+
                         if (!child["defaultValue"].IsNullOrEmpty())
                         {
                             var defaultValue = child["defaultValue"]?.Value<string>();
 
                             if(!CommandHelper.CheckIfIsCommand(defaultValue))
                             {
-                                model.DefaultParameter = defaultValue;
+                                if (!string.IsNullOrEmpty(model.Type))
+                                {
+                                    switch (model.Type)
+                                    {
+                                        case "string":
+                                            model.DefaultParameter = child["defaultValue"]?.Value<string>();
+                                            break;
+                                        case "int":
+                                            model.DefaultParameter = child["defaultValue"]?.Value<int>();
+                                            break;
+                                        case "bool":
+                                            model.DefaultParameter = child["defaultValue"]?.Value<bool>();
+                                            break;
+                                        default:
+                                            model.DefaultParameter = defaultValue;
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    model.DefaultParameter = defaultValue;
+                                }
                             }
                         }
                         if (!child["allowedValues"].IsNullOrEmpty())
                         {
                             model.AllowedValues = child["allowedValues"]?.ToObject<string[]>();
-                        }
-                        if (!child["type"].IsNullOrEmpty())
-                        {
-                            model.Type = child["type"]?.Value<string>();
                         }
                     }
                 }   

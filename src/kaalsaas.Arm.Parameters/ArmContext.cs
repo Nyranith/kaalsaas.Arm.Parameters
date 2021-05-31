@@ -60,7 +60,7 @@ namespace kaalsaas.Arm.Parameters
                 ContentVersion = "1.0.0.0",
                 Parameters = GetParameters().ToDictionary(value => value.Name, value => (object)new kaalsaas.Arm.Parameters.Schema._2019.Parameter.Parameter()
                 {
-                    Value = ignoreDefaultValues == false && value.DefaultParameter != null ? value.DefaultParameter.ToString() : ""
+                    Value = ignoreDefaultValues == false && value.DefaultParameter != null ? value.DefaultParameter : ""
                 })
             };
         }

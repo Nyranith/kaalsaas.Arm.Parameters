@@ -10,6 +10,6 @@ namespace kaalsaas.Arm.Parameters.Schema._2019.Parameter
     public class Parameter
     {
         [JsonProperty("value")]
-        public string Value { get; set; }
+        public object Value { get; set; }
     }
 }
