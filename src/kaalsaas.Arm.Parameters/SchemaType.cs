@@ -9,6 +9,7 @@ namespace kaalsaas.Arm.Parameters
     public enum SchemaType
     {
         _2015,
-        _2019
+        _2018,
+        _2019,
     }
 }

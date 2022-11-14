@@ -55,5 +55,23 @@ namespace kaalsaas.Arm.Parameters.CLI.Test
 
             result.Should().Be(0);
         }
+
+
+        [Fact]
+        public void TestCreateArmParameterFor2018Format()
+        {
+            var (output, error, result) = TextWriterHelper.InvokeWriterAction((@out, err) =>
+            {
+                var p = CreateProgram(@out, err);
+                return p.Run(new[] { "create-parameter", "-if b2c.json", "-ow true" });
+            });
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                throw new Exception(error);
+            }
+
+            result.Should().Be(0);
+        }
     }
 }

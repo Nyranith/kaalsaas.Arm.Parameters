@@ -5,9 +5,13 @@ using kaalsaas.Arm.Parameters.Schema;
 using kaalsaas.Arm.Parameters.Schema._2019;
 using kaalsaas.Arm.Parameters.Schema.Models;
 using Newtonsoft.Json.Linq;
+using static System.Net.WebRequestMethods;
 
 namespace kaalsaas.Arm.Parameters
 {
+    /// <summary>
+    /// https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/syntax
+    /// </summary>
     public class ArmContext : IArmContext
     {
         private const string SchemaProperty = "$schema";
@@ -39,10 +43,15 @@ namespace kaalsaas.Arm.Parameters
                     Schema = SchemaType._2015;
                     SchemaService = new Schema._2015.SchemaService(json);
                     break;
+                case "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#":
+                    Schema = SchemaType._2018;
+                    SchemaService = new Schema._2019.SchemaService(json);
+                    break;
                 case "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#":
                     Schema = SchemaType._2019;
                     SchemaService = new Schema._2019.SchemaService(json);
                     break;
+                
                 default:
                     throw new Exception($"Schema not supported, found schema: {schemaValue}");
             }
@@ -72,7 +81,9 @@ namespace kaalsaas.Arm.Parameters
                 case SchemaType._2015:
                     return "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#";
                 case SchemaType._2019:
-                    return "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#"; 
+                    return "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#";
+                case SchemaType._2018:
+                    return "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#";
                 default:
                     throw new Exception($"Cannot find schema type {schema}"); 
             }

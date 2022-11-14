@@ -1,0 +1,192 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.3.539.46024",
+      "templateHash": "16643734347804284307"
+    }
+  },
+  "parameters": {
+    "environmentname": {
+      "type": "string",
+      "defaultValue": "dev",
+      "allowedValues": [
+        "dev",
+        "test",
+        "prod"
+      ],
+      "metadata": {
+        "description": "the name of the environment. this must be dev, test, or prod."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "northeurope",
+      "metadata": {
+        "description": "the location of the resource"
+      }
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "defaultValue": "[format('resouce-{0}', parameters('environmentname'))]",
+      "metadata": {
+        "description": "Name of the resource group"
+      }
+    },
+    "name": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "skuName": {
+      "type": "string",
+      "defaultValue": "Standard",
+      "allowedValues": [
+        "PremiumP1",
+        "PremiumP2",
+        "Standard"
+      ],
+      "metadata": {
+        "description": "Allowed variables: https://learn.microsoft.com/en-us/azure/templates/microsoft.azureactivedirectory/2021-04-01/b2cdirectories?pivots=deployment-language-bicep#b2cresourcesku"
+      }
+    },
+    "countryCode": {
+      "type": "string",
+      "defaultValue": "NO",
+      "metadata": {
+        "description": "Country code: https://learn.microsoft.com/en-gb/azure/active-directory-b2c/data-residency"
+      }
+    }
+  },
+  "functions": [],
+  "resources": [
+    {
+      "type": "microsoft.resources/resourcegroups",
+      "apiVersion": "2021-04-01",
+      "name": "[parameters('resourceGroupName')]",
+      "location": "[parameters('location')]"
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "[parameters('name')]",
+      "resourceGroup": "[parameters('resourceGroupName')]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "name": {
+            "value": "[parameters('name')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "environmentName": {
+            "value": "[parameters('environmentname')]"
+          },
+          "countryCode": {
+            "value": "[parameters('countryCode')]"
+          },
+          "skuName": {
+            "value": "[parameters('skuName')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.3.539.46024",
+              "templateHash": "12405444591454803854"
+            }
+          },
+          "parameters": {
+            "environmentName": {
+              "type": "string",
+              "defaultValue": "dev",
+              "allowedValues": [
+                "dev",
+                "test",
+                "prod"
+              ],
+              "metadata": {
+                "description": "The name of the environment. This must be dev, test, or prod."
+              }
+            },
+            "location": {
+              "type": "string",
+              "defaultValue": "[resourceGroup().location]",
+              "metadata": {
+                "description": "The location of the resource"
+              }
+            },
+            "countryCode": {
+              "type": "string",
+              "defaultValue": "NO",
+              "metadata": {
+                "description": "Country code: https://learn.microsoft.com/en-gb/azure/active-directory-b2c/data-residency"
+              }
+            },
+            "name": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": ""
+              }
+            },
+            "skuName": {
+              "type": "string",
+              "defaultValue": "Standard",
+              "allowedValues": [
+                "PremiumP1",
+                "PremiumP2",
+                "Standard"
+              ],
+              "metadata": {
+                "description": "Allowed variables: https://learn.microsoft.com/en-us/azure/templates/microsoft.azureactivedirectory/2021-04-01/b2cdirectories?pivots=deployment-language-bicep#b2cresourcesku"
+              }
+            }
+          },
+          "functions": [],
+          "variables": {
+            "b2cName": "[format('{0}-{1}-tenant.onmicrosoft.com', parameters('name'), parameters('environmentName'))]"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.AzureActiveDirectory/b2cDirectories",
+              "apiVersion": "2021-04-01",
+              "name": "[variables('b2cName')]",
+              "location": "[parameters('location')]",
+              "sku": {
+                "name": "[parameters('skuName')]",
+                "tier": "A0"
+              },
+              "properties": {
+                "createTenantProperties": {
+                  "countryCode": "[parameters('countryCode')]",
+                  "displayName": "[format('{0}-{1}-tenant', parameters('name'), parameters('environmentName'))]"
+                }
+              },
+              "tags": {
+                "Department": "Dev"
+              }
+            }
+          ],
+          "outputs": {
+            "fullName": {
+              "type": "string",
+              "value": "[variables('b2cName')]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('microsoft.resources/resourcegroups', parameters('resourceGroupName'))]"
+      ]
+    }
+  ]
+}
