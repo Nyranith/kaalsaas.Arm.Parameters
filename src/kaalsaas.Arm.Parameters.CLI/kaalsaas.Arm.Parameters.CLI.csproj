@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +13,7 @@
     <PackageReference Include="SimpleInjector.Integration.ServiceCollection" Version="5.4.0" />
   </ItemGroup>
 	
-	<ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\kaalsaas.Arm.Parameters\kaalsaas.Arm.Parameters.csproj" />
   </ItemGroup>
 
